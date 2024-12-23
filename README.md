@@ -34,7 +34,7 @@ This repository contains an auction application developed using Django. The proj
 - **Database:** SQLite
 - **Authentication:** Django's built-in user model
 
-  ```plaintext
+```plaintext
 auction_application/
 ├── manage.py               # Django management script
 ├── auction/                # Project configuration
