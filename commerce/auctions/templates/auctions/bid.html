@@ -1,0 +1,21 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    
+    {% load static %}
+    <h2> {{user}}'s Bid</h2>
+    <div class="grid">
+        {% for bid in bids %}
+        <a href="{% url 'listing' bid.product.id %}">
+            <div class="card flex">
+                <img src={{bid.product.image}} alt="">
+                <div class="info">
+                    <h3> {{bid.product.title}} </h3>
+                    <h5>Price:{{bid.product.price}}</h5>
+                    <h5>Your Last Bid: {{bid.bid}} </h5>
+                </div> 
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+{% endblock %}

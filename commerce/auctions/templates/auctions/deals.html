@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% load static %}
+    <div class="grid">
+        {% if bougth_deal %}
+            <h2>Bought</h2>
+            {% for bought_deal in bought_deals %}
+            <a href="{% url 'listing' bought_deal.sold_product.id %}">
+                <div class="card flex">
+                    <img src={{bought_deal.sold_product.image}} alt="">
+                    <div class="info">
+                        <h3> {{bought_deal.sold_product.title}} </h3>
+                        <h4>Price:{{bought_deal.sold_product.price}}</h4>
+                        <p> {{bought_deal.sold_product.description}} </p>
+                        <p class="date">Created {{bought_deal.date}}</p>
+                    </div> 
+                </div>
+            </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="grid">
+        {% if sold_deal %}
+            <h2>Sold</h2>
+            {% for sold_deal in sold_deals %}
+            <a href="{% url 'listing' sold_deal.sold_product.id %}">
+                <div class="card flex">
+                    <img src={{sold_deal.sold_product.image}} alt="">
+                    <div class="info">
+                        <h3> {{sold_deal.sold_product.title}} </h3>
+                        <h4>Price:{{sold_deal.sold_product.price}}</h4>
+                        <p> {{sold_deal.sold_product.description}} </p>
+                        <p class="date">Created {{sold_deal.sold_product.date}}</p>
+                    </div> 
+                </div>
+            </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% load static %}
+
+    <h2>Active Listings</h2>
+    <div class="grid">
+        {% for auction in auctions %}
+        <a href="{% url 'listing' auction.id %}">
+            <div class="card flex">
+                <img src={{auction.image}} alt="">
+                <div class="info">
+                    <h3> {{auction.title}} </h3>
+                    <h4>Price:{{auction.price}}</h4>
+                    <p> {{auction.description}} </p>
+                    <p class="date">Created {{auction.date}}</p>
+                </div> 
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+{% endblock %}

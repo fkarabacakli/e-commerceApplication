@@ -1,0 +1,70 @@
+body {
+    padding: 10px;
+    margin: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.flex {
+    display: flex;
+}
+
+.container {
+    max-width: 1100px;
+}
+
+.card img {
+    max-width: 48%;
+    padding: 30px;
+    border-radius: 10%;
+}
+
+.card{
+    background-color: aliceblue;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    margin: 40px;
+}
+
+.info {
+    padding: 20px;
+}
+
+.info h3 {
+    margin-top: 20px;
+}
+
+.info .date {
+    font-size: small;
+}    
+
+.grid a:link, .grid a:visited, .grid a:hover, .grid a {
+    text-decoration: none;
+    color: black;
+}
+
+.list-info{
+    padding: 30px;
+}
+
+.btn {
+    color: white;
+    justify-content: center;
+    text-align: center;
+    justify-self: center;
+    margin-bottom: 10px;
+}
+
+.btn-primary{
+    background-color: blue;
+}
+
+.btn-secondary{
+    background-color: #333;
+}
+

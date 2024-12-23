@@ -1,0 +1,79 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    
+    <div class="container">
+        <h2>Listing: {{auction.title}} </h2>
+        {% if user.is_authenticated and user != auction.seller  and auction.closed == False%}
+            <form action="{% url 'watchlist' %}" method="post">
+                {% csrf_token %}
+                {% if in_watchlist %}
+                    <input type="submit" class="btn btn-danger" value="Remove from watchlist">
+                    <input type="hidden" name="on_watchlist" value="True">
+                {% else %}
+                    <input type="submit" class="btn btn-success" value="Add to watchlist">
+                    <input type="hidden" name="on_watchlist" value="False">
+                {% endif %}
+                <input type="hidden" name="auction_id" value="{{ auction.id }}">
+            </form>
+            <form action="{% url 'delete_bid'%}" method="post">
+                {% if user_bid %}
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger" value="Take Bid">
+                    <input type="hidden" name="auction_id" value="{{ auction.id }}">a
+                {% endif %}
+            </form>
+        {% endif %}
+        {% if user.is_authenticated and user == auction.seller %}
+            <form action="{% url 'close_deal' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="Close Deal">
+                <input type="hidden" name="auction_id" value="{{ auction.id }}">
+            </form>
+        {% endif %}
+        <div class="card">
+            <img src={{auction.image}} alt="">
+            <div class="list-info">
+                <h2> {{auction.price}} </h2>
+                <p>{{auction.description}}</p>
+                <h5>Details:</h5>
+                <ul>
+                    <a href="{% url 'category' auction.seller %}"><li>Listed by:{{auction.seller}}</li></a>
+                    <a href="{% url 'category' auction.category %}"><li>Category:{{auction.category}}</li></a>
+                </ul>
+                <h5>Highest Bid:{{max_bid}} </h5>
+                {% if user.is_authenticated and user != auction.seller  and auction.closed == False%}  
+                    {% if user.is_authenticated and user != auction.seller %}
+                        <p>Your Last Bid: {{last_bid}} </p>
+                        <form action="{% url 'bid' %}" method="post">
+                            {% csrf_token %}
+                            {{form}}
+                            <input type="hidden" name="auction_id" value="{{auction.id}}">
+                            <input type="submit" value="Place Bid">
+                        </form>
+                    {% endif %}
+                {% endif %}    
+                <p class="date">Created {{auction.date}}</p>
+            </div>
+        </div>
+        
+    {% if user.is_authenticated and user != auction.seller  and auction.closed == False%}
+    <div class="card">
+        <form action="{% url 'comment' %}" method="post">
+            {% csrf_token %}
+            {{comment_form}}
+            <input type="hidden" name="auction_id" value="{{auction.id}}">
+            <input type="submit" value="Send Commend">
+        </form>
+    </div>
+    {% endif %}
+
+    <div class="card comment">
+        {% for comment in comments %}
+            <h6> {{comment.comment_text}} </h6>
+            <p> {{comment.comment_date}} </p>    
+        {% endfor %}
+    </div>
+
+    </div>  
+{% endblock %}
